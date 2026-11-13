@@ -1,51 +1,41 @@
-interface BookProps {
-  bookId: number;
-  bookNameId: string;
-  bookName: string;
-  chapters: number;
-  bibleName: string;
+interface BookRow {
+  BOOK_ID: number;
+  BOOK_NAME: string;
+  BIBLE_NAME: string;
+  BOOK_NAME_NORM: string;
+  CHAPTERS: number;
 }
 
-interface BookRowProps {
-  BOOK_ID?: BookProps["bookId"];
-  BOOK_NAME?: BookProps["bookName"];
-  BIBLE_NAME?: BookProps["bibleName"];
-  BOOK_ORDER?: number;
-  TESTAMENT?: number;
-  BOOK_NAME_NORM?: string;
-  CHAPTERS?: BookProps["chapters"];
+interface ChapterRow {
+  CHAPTER: number;
+  BOOK_ID: number;
+  VERSES: number;
 }
 
-interface ChapterProps {
-  bookId: BookProps["bookId"];
+interface VerseRow {
+  VERSE_ID: number;
+  VERSE_TEXT: string;
+  SUBTITLE: string | null;
+}
+
+interface BookDto {
+  book_id: number;
+  book_name_id: string;
+  book_name: string;
+  chapters_count: number;
+  translation_name: string;
+}
+
+interface ChapterDto {
+  book_id: number;
   chapter: number;
-  verses: number;
+  verses_count: number;
 }
 
-interface ChapterRowProps {
-  ID?: number;
-  CHAPTER?: ChapterProps["chapter"];
-  BOOK_ID?: ChapterProps["bookId"];
-  VERSES?: ChapterProps["verses"];
-}
-
-interface VerseProps {
+interface VerseDto {
   verse: number;
   text: string;
-  subtitle: string;
+  subtitle: string | null;
 }
 
-interface VerseRowProps {
-  VERSE_ID?: VerseProps["verse"];
-  VERSE_TEXT?: VerseProps["text"];
-  SUBTITLE?: VerseProps["subtitle"];
-}
-
-export type {
-  BookProps,
-  BookRowProps,
-  ChapterProps,
-  ChapterRowProps,
-  VerseProps,
-  VerseRowProps,
-};
+export type { BookRow, ChapterRow, VerseRow, BookDto, ChapterDto, VerseDto };
