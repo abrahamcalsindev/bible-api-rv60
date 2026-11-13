@@ -18,3 +18,18 @@ export const bibleDb = new sqlite3.Database(
     console.log("Connected to bible.db database", { databaseDir });
   }
 );
+
+export const queryAll = <Row>(
+  sql: string,
+  params: Array<string | number> = []
+): Promise<Row[]> => {
+  return new Promise((resolve, reject) => {
+    bibleDb.all(sql, params, (error: Error | null, rows: Row[]) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+};
