@@ -19,20 +19,24 @@ API for accessing the online Bible in the [Reina Valera Revisada 1960 (RVR1960) 
 2. Install the project dependencies via pnpm, npm, or yarn by running one of the following commands
 
    ```powershell
-   # Using pnpm
+   # Usando pnpm
    pnpm install
 
-   # Using npm
+   # Usando npm
    npm install
 
-   # Using yarn
+   # Usando yarn
    yarn install
    ```
 
-3. Start the server
+ 3. Iniciar el servidor
 
    ```powershell
-   pnpm exec vercel dev
+   # Modo desarrollo
+   pnpm run devto
+
+   # Compilar y ejecutar
+   pnpm run build && pnpm start
    ```
 
 ## Usage:
@@ -68,7 +72,7 @@ Get all the books from the Bible.
 
 ## Customization:
 
-You can change the structure of the JSON data in the API, and you can also deploy this API on your own server using platforms like [Vercel.com](https://vercel.com/), [Railway.app](https://railway.app/), [Render.com](https://render.com/), etc.
+Puedes cambiar la estructura de los datos JSON de la API y ejecutarla localmente.
 
 ## License:
 
