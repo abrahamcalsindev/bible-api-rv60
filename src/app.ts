@@ -17,7 +17,7 @@ const API_KEY = process.env.API_KEY;
 
 if (!API_KEY) {
   console.error(
-    "Missing API_KEY environment variable. Start the server with a key, e.g.: API_KEY=my-secret pnpm run devto"
+    "Missing API_KEY environment variable. Start the server with a key, e.g.: API_KEY=my-secret npm run dev"
   );
 
   process.exit(1);
@@ -85,7 +85,7 @@ app.get("/api", (_req, res) => {
 });
 
 app.get("/api/hello", (_req, res) => {
-  return res.send("Hello WOrld");
+  return res.send("Hello World");
 });
 
 app.use((_req, res) => {
