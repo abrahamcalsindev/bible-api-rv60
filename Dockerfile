@@ -1,52 +1,34 @@
-# ============================================
-# Stage 1: Dependencies (cached aggressively)
-# ============================================
-FROM node:18-alpine AS deps
+# syntax=docker/dockerfile:1
+
+# Stage 1: Build (install deps + compile TypeScript)
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Copy only dependency files for maximum cache efficiency
+# Build tools for native modules (sqlite3)
+RUN apk add --no-cache g++ make python3
+
+# Copy dependency files first for layer cache
 COPY package.json package-lock.json* ./
 
-# Install dependencies with clean install
-# This layer is cached unless package.json or lockfile changes
-RUN npm ci
+# Install deps with BuildKit cache
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
-# ============================================
-# Stage 2: Build (only runs if source changes)
-# ============================================
-FROM node:18-alpine AS builder
-
-WORKDIR /app
-
-# Copy dependencies from previous stage
-COPY --from=deps /app/node_modules ./node_modules
-
-# Copy source code
+# Copy source and build
 COPY . .
-
-# Build TypeScript (typically < 2s for this project)
 RUN npm run build
 
-# ============================================
-# Stage 3: Production runtime (minimal image)
-# ============================================
+# Stage 2: Production runtime
 FROM node:18-alpine AS runner
 
 WORKDIR /app
 
-# Copy only production dependencies
-COPY --from=deps /app/package.json ./
-COPY --from=deps /app/package-lock.json* ./
-
-# Install ONLY production dependencies (no devDependencies)
-RUN npm ci --only=production
-
-# Copy compiled code from builder
-COPY --from=builder /app/dist ./dist
-
-# Copy database (required for SQLite)
-COPY --from=builder /app/database ./database
+# Copy compiled code and pre-built node_modules
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json ./
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/database ./database
 
 # Expose port
 EXPOSE 8000

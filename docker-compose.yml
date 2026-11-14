@@ -5,11 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # Enable BuildKit cache mounts for ultra-fast builds
-      cache_from:
-        - bible-api:latest
-      args:
-        BUILDKIT_INLINE_CACHE: 1
+      # BuildKit cache handled in Dockerfile
     image: bible-api:latest
     container_name: bible-api-rv60
     ports:
