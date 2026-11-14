@@ -51,7 +51,7 @@ con respuestas JSON ligeras y predecibles.
 | Herramienta | Versión recomendada |
 | ----------- | ------------------- |
 | Node.js     | 18 o superior       |
-| pnpm        | 8 o superior (también funciona con npm o yarn) |
+| npm         | 8 o superior        |
 
 ## Instalación
 
@@ -65,17 +65,17 @@ con respuestas JSON ligeras y predecibles.
 2. Instala las dependencias:
 
    ```bash
-   pnpm install
+   npm install
    ```
 
 3. Levanta el servidor:
 
    ```bash
    # Modo desarrollo (hot reload con nodemon)
-   API_KEY=mi-clave-secreta pnpm run devto
+   API_KEY=mi-clave-secreta npm run dev
 
    # Modo producción (compila y ejecuta)
-   API_KEY=mi-clave-secreta pnpm run build && pnpm start
+   API_KEY=mi-clave-secreta npm run build && npm start
    ```
 
 > **Importante:** `API_KEY` es obligatoria. Si no está definida, el servidor no arranca
@@ -88,10 +88,10 @@ con la variable de entorno `PORT`.
 
 | Script             | Comando                | Descripción                                    |
 | ------------------ | ---------------------- | ---------------------------------------------- |
-| Desarrollo         | `pnpm run devto`       | Servidor con hot reload vía nodemon + ts-node. |
-| Compilar           | `pnpm run build`       | Limpia `dist/` y compila TypeScript a JavaScript. |
-| Producción         | `pnpm start`           | Ejecuta el build desde `dist/`.                |
-| Limpiar            | `pnpm run clean`       | Elimina el directorio `dist/`.                 |
+| Desarrollo         | `npm run dev`          | Servidor con hot reload vía nodemon + ts-node. |
+| Compilar           | `npm run build`        | Limpia `dist/` y compila TypeScript a JavaScript. |
+| Producción         | `npm start`            | Ejecuta el build desde `dist/`.                |
+| Limpiar            | `npm run clean`        | Elimina el directorio `dist/`.                 |
 
 ---
 
@@ -516,7 +516,7 @@ consultas por nombre.
 | [SQLite](https://www.sqlite.org) + [sqlite3](https://github.com/TryGhost/node-sqlite3) | Base de datos embebida y driver. |
 | [CORS](https://github.com/expressjs/cors) | Acceso cross-origin abierto (`origin: *`). |
 | [nodemon](https://nodemon.io) + [ts-node](https://typestrong.org/ts-node/) | Desarrollo con hot reload. |
-| [pnpm](https://pnpm.io) | Gestor de paquetes. |
+| [npm](https://www.npmjs.com) | Gestor de paquetes. |
 
 ## Licencia
 
