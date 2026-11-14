@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  bible-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Enable BuildKit cache mounts for ultra-fast builds
+      cache_from:
+        - bible-api:latest
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+    image: bible-api:latest
+    container_name: bible-api-rv60
+    ports:
+      - "8000:8000"
+    environment:
+      - API_KEY=${API_KEY}
+      - PORT=8000
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/api', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    # Resource limits (optional, adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
