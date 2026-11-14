@@ -7,7 +7,9 @@
     "module": "CommonJS",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "sourceMap": true,
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
     "alwaysStrict": true,
     "allowUnreachableCode": false,
     "noImplicitAny": true,
@@ -16,6 +18,9 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
@@ -23,5 +28,5 @@
     }
   },
   "include": ["./**/*.ts"],
-  "exclude": ["node_modules/**/*"]
+  "exclude": ["node_modules/**/*", "dist/**/*"]
 }
