@@ -6,9 +6,9 @@ const projectDir = process.cwd();
 
 const databaseDir = path.join(projectDir, "database", "bible.db");
 
-export const bibleDb = new sqlite3.Database(
+const db = new sqlite3.Database(
   databaseDir,
-  (err: { message: string }) => {
+  (err: { message: string } | null) => {
     if (err) {
       console.error(err, { databaseDir });
 
@@ -16,12 +16,17 @@ export const bibleDb = new sqlite3.Database(
     }
 
     console.log("Connected to bible.db database", { databaseDir });
-  }
+
+    db.run("PRAGMA cache_size = -4096;");
+    db.run("PRAGMA mmap_size = 0;");
+  },
 );
+
+export const bibleDb = db;
 
 export const queryAll = <Row>(
   sql: string,
-  params: Array<string | number> = []
+  params: Array<string | number> = [],
 ): Promise<Row[]> => {
   return new Promise((resolve, reject) => {
     bibleDb.all(sql, params, (error: Error | null, rows: Row[]) => {

@@ -6,6 +6,7 @@ import chaptersRouter from "./routes/chapters";
 import versesRouter from "./routes/verses";
 import HttpError from "~/utils/httpError";
 import { apiKeyAuth } from "~/middlewares/auth";
+import { immutableCacheHeaders, memoryCache } from "~/middlewares/cache";
 import { loadEnv } from "~/utils/loadEnv";
 
 loadEnv();
@@ -30,6 +31,9 @@ app.use(
 );
 
 app.use("/api/bible", apiKeyAuth(API_KEY));
+
+app.use("/api/bible", immutableCacheHeaders);
+app.use("/api/bible", memoryCache);
 
 app.use("/api/bible/books", booksRouter);
 app.use("/api/bible/books", chaptersRouter);
